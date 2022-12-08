@@ -1,0 +1,73 @@
+.popup {
+  width: 600px;
+  height: 300px;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3%;
+
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      width: 80px;
+      font-size: .8em;
+      font-weight: 400;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+
+  .formula-box {
+    width: 100%;
+    
+    .formula {
+      width: 100%;
+      font-size: 0.8em;
+      cursor: pointer;
+      margin: 3% 0;
+      text-align: center;
+
+      .katex-display {
+        max-height: 100px;
+        overflow: auto;
+        margin: 0;
+
+        .katex {
+          display: inline-block;
+
+          .katex-html {
+            display: inline-block;
+          }
+        }
+      }
+      .tooltip {
+        font-size: 0.5em;
+        font-weight: bold;
+        position: absolute;
+        margin-left: 10px;
+      }
+    }
+
+    .textarea {
+      width: 100%;
+      height: 70px;
+      resize: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .support-table {
+      display: block;
+      text-align: right;
+      font-size: .5em;
+    }
+  }
+}
