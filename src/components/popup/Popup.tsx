@@ -105,7 +105,7 @@ function FormulaBox() {
             value={latex}
             placeholder={DEFAULT_LATEX}
             onChange={({target: {value}}) => {
-              Storage.set('latex', value.trim());
+              Storage.set('latex', value.trimStart());
               setLatex(value.trimStart());
             }}
           />
