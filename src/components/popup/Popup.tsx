@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IHistory } from '../../interfaces';
-import { HistoryStorage, LatexStorage } from '../../utils';
+import { HistoryStorage, LatexStorage, Storage } from '../../utils';
+import Footer from './Footer';
 import FormulaBox from './FormulaBox';
 import Header from './Header';
 import HistoryList from './HistoryList';
@@ -9,6 +10,7 @@ import './Popup.scss';
 function Popup() {
   const [latex, setLatexState] = useState<string | undefined>(undefined);
   const [histories, setHistories] = useState<IHistory[]>([]);
+  const [isHistoriesVisible, setIsHistoriesVisible] = useState(false);
 
   async function setLatex(latex: string) {
     const trimedLatex = latex.trimStart();
@@ -29,29 +31,39 @@ function Popup() {
     await HistoryStorage.remove(index);
   }
 
+  async function switchIsHistoriesVisible() {
+    setIsHistoriesVisible(!isHistoriesVisible);
+    await Storage.set('isHistoriesVisible', !isHistoriesVisible);
+  }
+
   LatexStorage.get().then(latex => setLatexState(latex));
   HistoryStorage.getAll().then(histories => setHistories(histories));
+  Storage.get<boolean>('isHistoriesVisible').then(isHistoriesVisible => setIsHistoriesVisible(isHistoriesVisible ?? false));
 
   // TODO: Modularize tooltip
-  // TODO: Add footer with dropdown history list
 
   return (
     <div className="popup">
       <div className="popup__main">
         <Header />
-        {
-          latex !== undefined
-            ? <FormulaBox
-              latex={latex}
-              setLatex={setLatex}
-              addHistory={addHistory}
-            />
-            : null
-        }
+        <div className="group">
+          {
+            latex !== undefined
+              ? <FormulaBox
+                latex={latex}
+                setLatex={setLatex}
+                addHistory={addHistory}
+              />
+              : null
+          }
+          <Footer
+            switchIsHistoriesVisible={switchIsHistoriesVisible}
+            isHistoriesVisible={isHistoriesVisible}
+          />
+        </div>
       </div>
-
       {
-        histories.length
+        histories.length && isHistoriesVisible
           ? <HistoryList
             histories={histories}
             removeHistory={removeHistory}

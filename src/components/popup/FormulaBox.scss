@@ -1,5 +1,8 @@
 .formula-box {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   
   &__katex {
     width: 100%;
@@ -38,11 +41,5 @@
     &:focus {
       outline: none;
     }
-  }
-
-  &__support {
-    display: block;
-    text-align: right;
-    font-size: .5em;
   }
 }

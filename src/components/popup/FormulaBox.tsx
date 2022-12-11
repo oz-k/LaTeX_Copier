@@ -1,5 +1,3 @@
-import { faLink } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import htmlToCanvas from 'html2canvas';
 import 'katex/dist/katex.min.css';
 import { useState } from 'react';
@@ -80,12 +78,6 @@ function FormulaBox(props: FormulaBoxProps) {
           placeholder={EXAMPLE_LATEX}
           onChange={({target: {value}}) => props.setLatex(value)}
         />
-        <a
-          className="formula-box__support"
-          href="https://katex.org/docs/support_table.html"
-          target="_blank"
-          rel="noreferrer"
-        ><FontAwesomeIcon icon={faLink} />Supported TeX tables</a>
       </div>
     )
   );
