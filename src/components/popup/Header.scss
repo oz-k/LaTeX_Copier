@@ -1,0 +1,13 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &__title {
+    width: 80px;
+    font-size: .8em;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+  }
+}

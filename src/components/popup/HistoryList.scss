@@ -1,0 +1,49 @@
+.history__list {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+
+  .history {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2%;
+
+    &__katex {
+      flex: 1;
+      font-size: .7em;
+      cursor: pointer;
+
+      .katex-display {
+        max-height: 90px;
+        overflow: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        margin: 0;
+
+        .katex {
+          text-align: left;
+        }
+      }
+
+      &--tooltip {
+        font-size: 0.5em;
+        font-weight: bold;
+        position: absolute;
+        margin-left: 10px;
+      }
+    }
+
+    &__delete {
+      align-self: center;
+      font-size: .9em;
+      color: rgba($color: #ff0000, $alpha: .7);
+      cursor: pointer;
+      margin: 0 3%;
+
+      &:hover {
+        color: rgba($color: #ff0000, $alpha: 1.0);
+      }
+    }
+  }
+}
