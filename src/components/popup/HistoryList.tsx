@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'katex/dist/katex.min.css';
 import { IHistory } from '../../interfaces';
 import './HistoryList.scss';
+import { useRef } from 'react';
 // @ts-ignore
 import { BlockMath } from 'react-katex';
-import { useState } from 'react';
+import Tooltip from './Tooltip';
 
 interface HistoryProps {
   history: IHistory;
@@ -14,39 +15,23 @@ interface HistoryProps {
 }
 
 function History(props: HistoryProps) {
-  const DEFAULT_TOOLTIP = 'Apply';
-  const [tooltipContent, setTooltipContent] = useState(DEFAULT_TOOLTIP);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-
-  function applyLatex() {
-    props.setLatex();
-    setTooltipContent('✅');
-    setTimeout(() => {
-      setTooltipContent(DEFAULT_TOOLTIP);
-    }, 1000);
-  }
+  const tooltipTargetRef = useRef<HTMLElement>(null);
 
   return (
     <div className="history__list--item history">
-      <div
-        className="history__katex"
-        onMouseEnter={() => setTooltipVisible(true)}
-        onMouseMove={({clientX, clientY}) => setTooltipPosition({ x: clientX, y: clientY })}
-        onMouseLeave={() => setTooltipVisible(false)}
-        onClick={applyLatex}
-      >
-        <BlockMath math={props.history.latex} />
-        <div
-            className="history__katex--tooltip"
-            style={{
-              display: tooltipVisible ? 'inline-block' : 'none',
-              top: `${tooltipPosition.y}px`,
-              left: `${tooltipPosition.x}px`,
-            }}
-          >
-            {tooltipContent}
-          </div>
+      <div className="history__katex">
+        <span ref={tooltipTargetRef}>
+          <BlockMath math={props.history.latex} />
+        </span>
+        {
+          tooltipTargetRef.current && (
+            <Tooltip
+              content='Apply'
+              target={tooltipTargetRef.current}
+              onClick={props.setLatex}
+            />
+          )
+        }
       </div>
       <FontAwesomeIcon
         className="history__delete"
