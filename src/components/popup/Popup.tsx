@@ -10,7 +10,7 @@ import './Popup.scss';
 function Popup() {
   const [latex, setLatexState] = useState<string | undefined>(undefined);
   const [histories, setHistories] = useState<IHistory[]>([]);
-  const [isHistoriesVisible, setIsHistoriesVisible] = useState(false);
+  const [isHistoriesVisible, setIsHistoriesVisible] = useState(true);
 
   async function setLatex(latex: string) {
     const trimedLatex = latex.trimStart();
